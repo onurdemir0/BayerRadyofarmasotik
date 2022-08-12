@@ -21,12 +21,12 @@ namespace BayerRadyofarmasotik.FileHelper
             return configData;
         }
 
-        public static void GeneratePdf(string htmlContent)
-        {
-            var htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
-            var pdfBytes = htmlToPdf.GeneratePdf(htmlContent);
-            System.IO.File.WriteAllBytes($"{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss").Replace("-", string.Empty)}.pdf", pdfBytes);
-        }
+        //public static void GeneratePdf(string htmlContent)
+        //{
+        //    var htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
+        //    var pdfBytes = htmlToPdf.GeneratePdf(htmlContent);
+        //    System.IO.File.WriteAllBytes($"{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss").Replace("-", string.Empty)}.pdf", pdfBytes);
+        //}
 
         public static string CreateHtmlContent(ProductsResponse response)
         {
@@ -45,13 +45,49 @@ namespace BayerRadyofarmasotik.FileHelper
                                          <h3> Bildirim Zaman: {DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss").Replace(".", "/")}</h3>
                                          </br>";
 
-            for (int i = 0; i < response.productResponseList.Count; i++)
+            for (int i = 0; i < response.productList.Count; i++)
             {
-                htmlString += $"<h3>Bildirim Urun :#{i + 1}</h3><a>BN: {response.productResponseList[i].bn}</a></br><a>GTIN: {response.productResponseList[i].gtin}</a></br></br>";
+                htmlString += $"<h3>Bildirim Urun :#{i + 1}</h3><a>BN: {response.productList[i].bn}</a></br><a>GTIN: {response.productList[i].gtin}</a></br>" +
+                    $"<a>UC: {GetBildiriResultByUC(response.productList[i].uc)}</a></br></br>";
             }
             htmlString += "</body></html>";
 
             return htmlString;
+        }
+
+        private static string GetBildiriResultByUC(string uc)
+        {
+            string ucMessage = "";
+            switch (uc)
+            {
+                case "00000":
+                    ucMessage = "Urun uzerinde gerceklestirilen islem basarilidir";
+                    return ucMessage;
+                case "11005":
+                    ucMessage = "Bu urune ait bildirim yapma yetkiniz yok";
+                    return ucMessage;
+                case "10204":
+                    ucMessage = "Belirtilen urun daha once satılmıs";
+                    return ucMessage;
+                case "10202":
+                    ucMessage = "Urunun Son Kullanma Tarihi gecmistir";
+                    return ucMessage;
+                case "11004":
+                    ucMessage = "Yanlis GTIN numarasi";
+                    return ucMessage;
+                case "10206":
+                    ucMessage = "Veri tabani kayit hatasi";
+                    return ucMessage;
+                case "10201":
+                    ucMessage = "Belirtilen urun sistemde kayitli degil";
+                    return ucMessage;
+                case "15029":
+                    ucMessage = "Gecersiz (Kalibrasyon/Yüklenen Aktivite) birim degeri";
+                    return ucMessage;
+                default:
+                    ucMessage = $"Bilinmeyen durum! UC kodu: {uc}";
+                    return ucMessage;
+            }
         }
     }
 }

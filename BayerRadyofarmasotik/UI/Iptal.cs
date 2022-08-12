@@ -1,11 +1,7 @@
-﻿using BayerRadyofarmasotik.ButtonControls;
-using BayerRadyofarmasotik.Connectors;
+﻿using BayerRadyofarmasotik.Connectors;
 using BayerRadyofarmasotik.Entities;
 using BayerRadyofarmasotik.FileHelper;
 using BayerRadyofarmasotik.Logger;
-using BayerRadyofarmasotik.Properties;
-using BayerRadyofarmasotik.UI;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,32 +14,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BayerRadyofarmasotik
+namespace BayerRadyofarmasotik.UI
 {
-    public partial class Form1 : Form
+    public partial class Iptal : Form
     {
-        Iptal iptalFrm;
+        Form1 istekFrm;
         SaglikTokenApiClient saglikTokenApiClient = new SaglikTokenApiClient(new FileLoggerService());
         public string accessToken;
         System.Net.HttpStatusCode status;
         public Dictionary<string, string> configData;
 
-        public Form1()
+        public Iptal()
         {
             InitializeComponent();
             Assign(this);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Iptal_Load(object sender, EventArgs e)
         {
-            //userControlIptalHeader1.Hide();
-            //userControlIstekHeader1.Show();
             dgvProducts.Location = new Point(13, 142);
 
             configData = Operations.ReadFile("config.txt");
 
             var user = SetUser(configData);
-            
+
             LoginResponse loginResponse;
             if (configData["environment"].Substring(1, configData["environment"].Length - 2).ToLower() == "production")
                 loginResponse = saglikTokenApiClient.LoginToProd(user, out status);
@@ -73,17 +67,6 @@ namespace BayerRadyofarmasotik
             return user;
         }
 
-        private void lblIstek_MouseEnter(object sender, EventArgs e)
-        {
-            lblIstek.Font = new Font(lblIstek.Font.Name, 14);
-        }
-
-        private void lblIstek_MouseLeave(object sender, EventArgs e)
-        {
-            lblIstek.Font = new Font(lblIstek.Font.Name, 12);
-            this.Cursor = Cursors.Default;
-        }
-
         private void lblİptal_MouseEnter(object sender, EventArgs e)
         {
             lblİptal.Font = new Font(lblİptal.Font.Name, 14);
@@ -92,13 +75,22 @@ namespace BayerRadyofarmasotik
         private void lblİptal_MouseLeave(object sender, EventArgs e)
         {
             lblİptal.Font = new Font(lblİptal.Font.Name, 12);
-            this.Cursor = Cursors.Default;
+        }
+
+        private void lblIstek_MouseEnter(object sender, EventArgs e)
+        {
+            lblIstek.Font = new Font(lblIstek.Font.Name, 14);
+        }
+
+        private void lblIstek_MouseLeave(object sender, EventArgs e)
+        {
+            lblIstek.Font = new Font(lblIstek.Font.Name, 12);
         }
 
         private bool CheckOpened(string formName)
         {
             FormCollection formCollection = Application.OpenForms;
-
+            formCollection[0].Show();
             foreach (Form form in formCollection)
             {
                 if (form.Text == formName)
@@ -119,101 +111,52 @@ namespace BayerRadyofarmasotik
 
         private void lblIstek_Click(object sender, EventArgs e)
         {
-            lblİptal.ForeColor = Color.Gray;
-            lblIstek.ForeColor = Color.Black;
-            pnlIstekHeader.Visible = true;
-            //dgvProducts.Visible = true;
-            //pnlIptalHeader.SendToBack();
-            if (pnlIstekBody.Visible == false)
-                dgvProducts.Location = new Point(13, 142);
+            FormCollection formCollection = Application.OpenForms;
+            formCollection[0].Show();
+            formCollection[0].Focus();
+            //if (istekFrm == null || istekFrm.Text == "")
+            //{
+            //    istekFrm = new Form1();
+            //    istekFrm.Show();
+            //}
+            //else if (CheckOpened(istekFrm.Text))
+            //    FormSet(istekFrm);
         }
 
-        private void lblİptal_Click(object sender, EventArgs e)
+        private void btnIptalYeniSatir_Click(object sender, EventArgs e)
         {
-            if (iptalFrm == null || iptalFrm.Text == "")
-            {
-                iptalFrm = new Iptal();
-                iptalFrm.Show();
-            }
-            else if (CheckOpened(iptalFrm.Text))
-                FormSet(iptalFrm);
-            //lblİptal.ForeColor = Color.Black;
-            //lblIstek.ForeColor = Color.Gray;
-            //pnlIstekBody.Visible = false;
-            //dgvProducts.Visible = false;
-            //pnlIptalHeader.Visible = true;
-            //pnlIptalHeader.BringToFront();
-
-            //pnlIstekHeader.Visible = false;
+            dgvProducts.Location = new Point(13, 385);
+            pnlIptalBody.Visible = true;
         }
 
-        private void lblIstek_MouseMove(object sender, MouseEventArgs e)
-        {
-            this.Cursor = Cursors.Hand;
-        }
-
-        private void lblİptal_MouseMove(object sender, MouseEventArgs e)
-        {
-            this.Cursor = Cursors.Hand;
-        }
-
-        private void btnIstekYeniSatir_Click(object sender, EventArgs e)
-        {
-            dgvProducts.Location = new Point(13, 717);
-            pnlIstekBody.Visible = true;
-            ComboboxItemSetting();
-        }
-
-        private void btnIstekYeniUrunKaydet_Click(object sender, EventArgs e)
+        private void btnIptalKaydet_Click(object sender, EventArgs e)
         {
             var product = GetValueToProduct();
-            if (!String.IsNullOrEmpty(product.gtin) & !String.IsNullOrEmpty(product.bn) & !String.IsNullOrEmpty(product.productionIdentifier) & !String.IsNullOrEmpty(product.loadedActivity) & !String.IsNullOrEmpty(product.calibrationActivity) & !String.IsNullOrEmpty(product.countryCode))
+            if (!String.IsNullOrEmpty(product.gtin) && !String.IsNullOrEmpty(product.bn))
             {
-                pnlIstekBody.Visible = false;
+                pnlIptalBody.Visible = false;
                 dgvProducts.Location = new Point(13, 142);
 
                 int n = dgvProducts.Rows.Add();
                 dgvProducts.Rows[n].Cells[1].Value = product.gtin;
                 dgvProducts.Rows[n].Cells[2].Value = product.bn;
-                dgvProducts.Rows[n].Cells[3].Value = product.productionIdentifier;
-                dgvProducts.Rows[n].Cells[4].Value = product.loadedActivity;
-                dgvProducts.Rows[n].Cells[5].Value = product.loadedUnitId;
-                dgvProducts.Rows[n].Cells[6].Value = product.calibrationActivity;
-                dgvProducts.Rows[n].Cells[7].Value = product.calibrationUnitId;
-                dgvProducts.Rows[n].Cells[8].Value = product.loadDate;
-                dgvProducts.Rows[n].Cells[9].Value = product.dt;
-                dgvProducts.Rows[n].Cells[10].Value = product.countryCode;
-                dgvProducts.Rows[n].Cells[11].Value = product.xd;
-                ClearIstekText();
+                dgvProducts.Rows[n].Cells[3].Value = product.loadDate;
+                ClearIptalText();
                 ClearPicBox();
-                btnIstekGonder.Enabled = true;
             }
             else
-                MessageBox.Show("Lütfen tüm zorunlu alanları doldurun.");
+                MessageBox.Show("Lütfen zorunlu alanları doldurun.");
         }
 
-        private Product GetValueToProduct()
+        private ProductIptal GetValueToProduct()
         {
-            Product product = new Product
+            ProductIptal product = new ProductIptal
             {
                 gtin = txtIstekGTIN.Texts,
                 bn = TxtIstekBN.Texts,
-                productionIdentifier = txtUretimTesisTanimlayici.Texts,
-                loadedActivity = txtYuklenenAktivite.Texts,
-                loadedUnitId = comboBoxHedeflenenAktiviteBirim.Text.Substring(0, 1),
-                calibrationActivity = txtHedefAktivite.Texts,
-                calibrationUnitId = comboBoxHedeflenenAktiviteBirim.Text.Substring(0, 1),
-                dt = comboBoxDT.Text.Substring(comboBoxDT.Text.Length - 2, 1),
-                countryCode = txtUlkeKodu.Texts,
-                loadDate = dtpCikisTarihi.Value.ToString("yyyy-MM-dd"),
-                xd = dtpSkt.Value.ToString("yyyy-MM-dd")
+                loadDate = dtpCikisTarihi.Value.ToString("yyyy-MM-dd")
             };
             return product;
-        }
-
-        private void dgvProducts_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-            dgvProducts.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
         }
 
         private void dgvProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -221,45 +164,31 @@ namespace BayerRadyofarmasotik
             if (dgvProducts.Columns[e.ColumnIndex].Name == "columnIslemler")
                 if (e.RowIndex >= 0)
                     dgvProducts.Rows.RemoveAt(e.RowIndex);
-            if (dgvProducts.Rows.Count == 0)
-                btnIstekGonder.Enabled = false;
         }
 
-        private void ClearIstekText()
+        private void dgvProducts_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            dgvProducts.Rows[e.RowIndex].Cells[0].Value = (e.RowIndex + 1).ToString();
+        }
+
+        private void ClearIptalText()
         {
             txtIstekGTIN.Texts = "";
             TxtIstekBN.Texts = "";
-            txtUretimTesisTanimlayici.Texts = "";
-            txtYuklenenAktivite.Texts = "";
-            dtpCikisTarihi.Text = DateTime.Now.ToString();
-            txtYuklenenAktivite.Texts = "";
-            txtHedefAktivite.Texts = "";
-            txtUlkeKodu.Texts = "";
-            dtpSkt.Text = DateTime.Now.ToString();
         }
 
         private void ClearPicBox()
         {
             pictureBoxUlkeKodu.Image = null;
+            pictureBoxToGln.Image = null;
             pictureBoxIstekGtin.Image = null;
             pictureBoxIstekBN.Image = null;
-            pictureBoxHedefAktivite.Image = null;
-            pictureBoxUretimTesisTanimlayici.Image = null;
-            pictureBoxYuklenenAktivite.Image = null;
         }
 
-        private void ComboboxItemSetting()
+        private void btnIptalTemizle_Click(object sender, EventArgs e)
         {
-            comboBoxDT.SelectedIndex = 0;
-            comboBoxHedeflenenAktiviteBirim.SelectedIndex = 0;
-            comboBoxYuklenenAktiviteBirim.SelectedIndex = 0;
-        }
-
-        private void btnIstekTemizle_Click(object sender, EventArgs e)
-        {
-            ClearIstekText();
+            ClearIptalText();
             ClearPicBox();
-            pictureBoxTOGLN.Image = null;
         }
 
         void Assign(Control control)
@@ -279,10 +208,6 @@ namespace BayerRadyofarmasotik
         void tb_TextChanged(object sender, EventArgs e)
         {
             System.Windows.Forms.TextBox tb = (System.Windows.Forms.TextBox)sender;
-            if (txtIstekTOGLN.Texts.Length > 0)
-                pictureBoxTOGLN.Image = Properties.Resources.check_mark__1_;
-            else
-                pictureBoxTOGLN.Image = Properties.Resources.close__1_;
             if (txtIstekGTIN.Texts.Length > 0)
                 pictureBoxIstekGtin.Image = Properties.Resources.check_mark__1_;
             else
@@ -291,43 +216,32 @@ namespace BayerRadyofarmasotik
                 pictureBoxIstekBN.Image = Properties.Resources.check_mark__1_;
             else
                 pictureBoxIstekBN.Image = Properties.Resources.close__1_;
-            if (txtUretimTesisTanimlayici.Texts.Length > 0)
-                pictureBoxUretimTesisTanimlayici.Image = Properties.Resources.check_mark__1_;
+            if (txtIstekTOGLN.Texts.Length > 0)
+                pictureBoxToGln.Image = Properties.Resources.check_mark__1_;
             else
-                pictureBoxUretimTesisTanimlayici.Image = Properties.Resources.close__1_;
-            if (txtHedefAktivite.Texts.Length > 0)
-                pictureBoxHedefAktivite.Image = Properties.Resources.check_mark__1_;
-            else
-                pictureBoxHedefAktivite.Image = Properties.Resources.close__1_;
-            if (txtYuklenenAktivite.Texts.Length > 0)
-                pictureBoxYuklenenAktivite.Image = Properties.Resources.check_mark__1_;
-            else
-                pictureBoxYuklenenAktivite.Image = Properties.Resources.close__1_;
-            if (txtUlkeKodu.Texts.Length > 0)
-                pictureBoxUlkeKodu.Image = Properties.Resources.check_mark__1_;
-            else
-                pictureBoxUlkeKodu.Image = Properties.Resources.close__1_;
+                pictureBoxToGln.Image = Properties.Resources.close__1_;
         }
 
         ProductsResponse response;
-        private void btnIstekGonder_Click(object sender, EventArgs e)
+        private void btnIptalGonder_Click(object sender, EventArgs e)
         {
-            if (dgvProducts.Rows.Count > 0)
+            if (dgvProducts.Rows.Count >0)
             {
+                // TOGLN textbox'ı kontrol edilecek
                 if (!String.IsNullOrEmpty(txtIstekTOGLN.Texts))
                 {
-                    Products products = SetProductFromDGV();
+                    ProductsIptal products = SetProductFromDGV();
 
                     if (configData["environment"].Substring(1, configData["environment"].Length - 2).ToLower() == "production")
                     {
                         SaglikProdBildiriApiClient saglikBildiriApiClient = new SaglikProdBildiriApiClient(new FileLoggerService());
-                        response = saglikBildiriApiClient.Bildiri(products, accessToken);
+                        response = saglikBildiriApiClient.IptalBildiri(products, accessToken);
                     }
                     //TEST API
                     else
                     {
                         SaglikTestBildiriApiClient saglikBildiriApiClient = new SaglikTestBildiriApiClient(new FileLoggerService());
-                        response = saglikBildiriApiClient.Bildiri(products, accessToken);
+                        response = saglikBildiriApiClient.IptalBildiri(products, accessToken);
                     }
 
                     var htmlString = Operations.CreateHtmlContent(response);
@@ -345,10 +259,6 @@ namespace BayerRadyofarmasotik
                             File.WriteAllText("response.html", htmlString);
                             var pdfBytes = PdfGenerator.HtmlToPdf(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)), save.FileName, "response.html", new string[] { });
 
-                            //var htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
-                            //var pdfBytes = htmlToPdf.GeneratePdf(htmlString);
-                            //System.IO.File.WriteAllBytes($"{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss").Replace("-", string.Empty)}.pdf", pdfBytes);
-
                             dgvProducts.Rows.Clear();
                             dgvProducts.Refresh();
                         }
@@ -361,13 +271,14 @@ namespace BayerRadyofarmasotik
             }
             else
                 MessageBox.Show("Ürün bilgisi girin.");
+            
         }
 
-        private Products SetProductFromDGV()
+        private ProductsIptal SetProductFromDGV()
         {
-            Products products = new Products()
+            ProductsIptal products = new ProductsIptal()
             {
-                productList = new List<Product>()
+                productList = new List<ProductIptal>()
                 {
 
                 }
@@ -375,19 +286,11 @@ namespace BayerRadyofarmasotik
             products.toGln = txtIstekTOGLN.Texts;
             for (int i = 0; i < dgvProducts.Rows.Count; i++)
             {
-                Product product = new Product
+                ProductIptal product = new ProductIptal
                 {
                     gtin = dgvProducts.Rows[i].Cells[1].Value.ToString(),
                     bn = dgvProducts.Rows[i].Cells[2].Value.ToString(),
-                    productionIdentifier = dgvProducts.Rows[i].Cells[3].Value.ToString(),
-                    loadedActivity = dgvProducts.Rows[i].Cells[4].Value.ToString(),
-                    loadedUnitId = dgvProducts.Rows[i].Cells[5].Value.ToString(),
-                    calibrationActivity = dgvProducts.Rows[i].Cells[6].Value.ToString(),
-                    calibrationUnitId = dgvProducts.Rows[i].Cells[7].Value.ToString(),
-                    loadDate = dgvProducts.Rows[i].Cells[8].Value.ToString(),
-                    dt = dgvProducts.Rows[i].Cells[9].Value.ToString(),
-                    countryCode = dgvProducts.Rows[i].Cells[10].Value.ToString(),
-                    xd = dgvProducts.Rows[i].Cells[11].Value.ToString()
+                    loadDate = dgvProducts.Rows[i].Cells[3].Value.ToString()
                 };
                 products.productList.Add(product);
             }
@@ -431,12 +334,6 @@ namespace BayerRadyofarmasotik
                 }
             }
             return requestMessage;
-        }
-
-        private void txtIstekGTIN_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((!char.IsControl(e.KeyChar)) && (!char.IsDigit(e.KeyChar)))
-                e.Handled = true;
         }
     }
 }

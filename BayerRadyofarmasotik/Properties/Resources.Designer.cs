@@ -70,44 +70,6 @@ namespace BayerRadyofarmasotik.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://itstest2.saglik.gov.tr/.
-        /// </summary>
-        internal static string ApiServiceEndPoint {
-            get {
-                return ResourceManager.GetString("ApiServiceEndPoint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to nonproduct/app/radiopharmaceutical.
-        /// </summary>
-        internal static string bildirimService {
-            get {
-                return ResourceManager.GetString("bildirimService", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap calendarDark {
-            get {
-                object obj = ResourceManager.GetObject("calendarDark", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap calendarWhite {
-            get {
-                object obj = ResourceManager.GetObject("calendarWhite", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap chat {
@@ -178,15 +140,6 @@ namespace BayerRadyofarmasotik.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to nonproduct/app/radiopharmaceuticalcancel.
-        /// </summary>
-        internal static string iptalService {
-            get {
-                return ResourceManager.GetString("iptalService", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Logo_Bayer_svg {
@@ -197,12 +150,75 @@ namespace BayerRadyofarmasotik.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to token/app/token/.
+        /// </summary>
+        internal static string prodAcccessToken {
+            get {
+                return ResourceManager.GetString("prodAcccessToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://its2.saglik.gov.tr/.
+        /// </summary>
+        internal static string prodApiServiceEndPoint {
+            get {
+                return ResourceManager.GetString("prodApiServiceEndPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nonproduct/app/radiopharmaceutical.
+        /// </summary>
+        internal static string prodBildirimService {
+            get {
+                return ResourceManager.GetString("prodBildirimService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nonproduct/app/radiopharmaceuticalcancel.
+        /// </summary>
+        internal static string prodIptalService {
+            get {
+                return ResourceManager.GetString("prodIptalService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap question {
             get {
                 object obj = ResourceManager.GetObject("question", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://itstest2.saglik.gov.tr/.
+        /// </summary>
+        internal static string testApiServiceEndPoint {
+            get {
+                return ResourceManager.GetString("testApiServiceEndPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nonproduct/app/radiopharmaceutical.
+        /// </summary>
+        internal static string testBildirimService {
+            get {
+                return ResourceManager.GetString("testBildirimService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nonproduct/app/radiopharmaceuticalcancel.
+        /// </summary>
+        internal static string testIptalService {
+            get {
+                return ResourceManager.GetString("testIptalService", resourceCulture);
             }
         }
         

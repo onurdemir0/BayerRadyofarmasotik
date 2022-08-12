@@ -22,11 +22,7 @@ namespace BayerRadyofarmasotik.ButtonControls
         public event EventHandler _TextChanged;
 
         //TextBox-> TextChanged event
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            if (_TextChanged != null)
-                _TextChanged.Invoke(sender, e);
-        }
+        
 
         //TextBox events
         /// <summary>
@@ -48,7 +44,7 @@ namespace BayerRadyofarmasotik.ButtonControls
             this.OnMouseLeave(e);
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox1_KeyPress_1(object sender, KeyPressEventArgs e)
         {
             this.OnKeyPress(e);
         }
@@ -67,6 +63,10 @@ namespace BayerRadyofarmasotik.ButtonControls
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(236, 18);
             this.textBox1.TabIndex = 0;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter_1);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress_1);
+            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave_1);
             // 
             // RJTextBox
             // 
@@ -364,14 +364,25 @@ namespace BayerRadyofarmasotik.ButtonControls
         }
 
         //Change border color in focus mode
-        private void textBox1_Enter(object sender, EventArgs e)
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.OnKeyPress(e);
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+            if (_TextChanged != null)
+                _TextChanged.Invoke(sender, e);
+        }
+
+        private void textBox1_Enter_1(object sender, EventArgs e)
         {
             isFocused = true;
             this.Invalidate();
             RemovePlaceholder();
         }
 
-        private void textBox1_Leave(object sender, EventArgs e)
+        private void textBox1_Leave_1(object sender, EventArgs e)
         {
             isFocused = false;
             this.Invalidate();

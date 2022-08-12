@@ -29,8 +29,8 @@ namespace BayerRadyofarmasotik
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblIstek = new System.Windows.Forms.Label();
             this.lblİptal = new System.Windows.Forms.Label();
             this.lblUserLogin = new System.Windows.Forms.Label();
@@ -42,6 +42,9 @@ namespace BayerRadyofarmasotik
             this.txtIstekTOGLN = new BayerRadyofarmasotik.ButtonControls.RJTextBox();
             this.btnIstekGonder = new BayerRadyofarmasotik.ButtonControls.RJButton();
             this.pnlIstekBody = new System.Windows.Forms.Panel();
+            this.comboBoxHedeflenenAktiviteBirim = new System.Windows.Forms.ComboBox();
+            this.comboBoxYuklenenAktiviteBirim = new System.Windows.Forms.ComboBox();
+            this.comboBoxDT = new System.Windows.Forms.ComboBox();
             this.pictureBoxUlkeKodu = new System.Windows.Forms.PictureBox();
             this.pictureBoxIstekBN = new System.Windows.Forms.PictureBox();
             this.pictureBoxHedefAktivite = new System.Windows.Forms.PictureBox();
@@ -69,6 +72,7 @@ namespace BayerRadyofarmasotik
             this.txtIstekGTIN = new BayerRadyofarmasotik.ButtonControls.RJTextBox();
             this.lblGTIN = new System.Windows.Forms.Label();
             this.lblUrunEklemeFormu = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dgvProducts = new System.Windows.Forms.DataGridView();
             this.columnEmpty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnGTIN = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,13 +87,9 @@ namespace BayerRadyofarmasotik
             this.columnCOUNTRY_CODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnXD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnIslemler = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.userControlIptalHeader1 = new BayerRadyofarmasotik.UI.UserControlIptalHeader();
+            this.pictureBoxBayerLogo = new System.Windows.Forms.PictureBox();
             this.userControl21 = new BayerRadyofarmasotik.UI.UserControlIptalHeader();
             this.userControl11 = new BayerRadyofarmasotik.UI.UserControlIstekHeader();
-            this.pictureBoxBayerLogo = new System.Windows.Forms.PictureBox();
-            this.comboBoxDT = new System.Windows.Forms.ComboBox();
-            this.comboBoxYuklenenAktiviteBirim = new System.Windows.Forms.ComboBox();
-            this.comboBoxHedeflenenAktiviteBirim = new System.Windows.Forms.ComboBox();
             this.pnlIstekHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTOGLN)).BeginInit();
             this.pnlIstekBody.SuspendLayout();
@@ -99,6 +99,7 @@ namespace BayerRadyofarmasotik
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxYuklenenAktivite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUretimTesisTanimlayici)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIstekGtin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBayerLogo)).BeginInit();
             this.SuspendLayout();
@@ -231,7 +232,7 @@ namespace BayerRadyofarmasotik
             this.txtIstekTOGLN.Padding = new System.Windows.Forms.Padding(16, 14, 7, 7);
             this.txtIstekTOGLN.PasswordChar = false;
             this.txtIstekTOGLN.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtIstekTOGLN.PlaceholderText = "";
+            this.txtIstekTOGLN.PlaceholderText = "TOGLN";
             this.txtIstekTOGLN.Size = new System.Drawing.Size(492, 48);
             this.txtIstekTOGLN.TabIndex = 4;
             this.txtIstekTOGLN.Texts = "";
@@ -244,6 +245,7 @@ namespace BayerRadyofarmasotik
             this.btnIstekGonder.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnIstekGonder.BorderRadius = 5;
             this.btnIstekGonder.BorderSize = 0;
+            this.btnIstekGonder.Enabled = false;
             this.btnIstekGonder.FlatAppearance.BorderSize = 0;
             this.btnIstekGonder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIstekGonder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -289,11 +291,52 @@ namespace BayerRadyofarmasotik
             this.pnlIstekBody.Controls.Add(this.txtIstekGTIN);
             this.pnlIstekBody.Controls.Add(this.lblGTIN);
             this.pnlIstekBody.Controls.Add(this.lblUrunEklemeFormu);
+            this.pnlIstekBody.Controls.Add(this.pictureBox1);
             this.pnlIstekBody.Location = new System.Drawing.Point(6, 174);
             this.pnlIstekBody.Name = "pnlIstekBody";
             this.pnlIstekBody.Size = new System.Drawing.Size(2017, 704);
             this.pnlIstekBody.TabIndex = 11;
             this.pnlIstekBody.Visible = false;
+            // 
+            // comboBoxHedeflenenAktiviteBirim
+            // 
+            this.comboBoxHedeflenenAktiviteBirim.FormattingEnabled = true;
+            this.comboBoxHedeflenenAktiviteBirim.Items.AddRange(new object[] {
+            "1-μci",
+            "2-mci",
+            "3-mbq",
+            "4-gbq",
+            "5-kutu"});
+            this.comboBoxHedeflenenAktiviteBirim.Location = new System.Drawing.Point(1026, 421);
+            this.comboBoxHedeflenenAktiviteBirim.Name = "comboBoxHedeflenenAktiviteBirim";
+            this.comboBoxHedeflenenAktiviteBirim.Size = new System.Drawing.Size(983, 24);
+            this.comboBoxHedeflenenAktiviteBirim.TabIndex = 37;
+            // 
+            // comboBoxYuklenenAktiviteBirim
+            // 
+            this.comboBoxYuklenenAktiviteBirim.FormattingEnabled = true;
+            this.comboBoxYuklenenAktiviteBirim.Items.AddRange(new object[] {
+            "1-μci",
+            "2-mci",
+            "3-mbq",
+            "4-gbq",
+            "5-kutu"});
+            this.comboBoxYuklenenAktiviteBirim.Location = new System.Drawing.Point(1026, 316);
+            this.comboBoxYuklenenAktiviteBirim.Name = "comboBoxYuklenenAktiviteBirim";
+            this.comboBoxYuklenenAktiviteBirim.Size = new System.Drawing.Size(983, 24);
+            this.comboBoxYuklenenAktiviteBirim.TabIndex = 36;
+            // 
+            // comboBoxDT
+            // 
+            this.comboBoxDT.FormattingEnabled = true;
+            this.comboBoxDT.Items.AddRange(new object[] {
+            "Yurt İçi(M)",
+            "İthalat(I)",
+            "İhracat(E)"});
+            this.comboBoxDT.Location = new System.Drawing.Point(14, 527);
+            this.comboBoxDT.Name = "comboBoxDT";
+            this.comboBoxDT.Size = new System.Drawing.Size(983, 24);
+            this.comboBoxDT.TabIndex = 35;
             // 
             // pictureBoxUlkeKodu
             // 
@@ -417,7 +460,7 @@ namespace BayerRadyofarmasotik
             this.txtUlkeKodu.Padding = new System.Windows.Forms.Padding(16, 14, 7, 7);
             this.txtUlkeKodu.PasswordChar = false;
             this.txtUlkeKodu.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtUlkeKodu.PlaceholderText = "";
+            this.txtUlkeKodu.PlaceholderText = "COUNTRY_CODE";
             this.txtUlkeKodu.Size = new System.Drawing.Size(983, 48);
             this.txtUlkeKodu.TabIndex = 21;
             this.txtUlkeKodu.Texts = "";
@@ -516,7 +559,7 @@ namespace BayerRadyofarmasotik
             this.txtYuklenenAktivite.Padding = new System.Windows.Forms.Padding(16, 14, 7, 7);
             this.txtYuklenenAktivite.PasswordChar = false;
             this.txtYuklenenAktivite.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtYuklenenAktivite.PlaceholderText = "";
+            this.txtYuklenenAktivite.PlaceholderText = "LOADED_ACTIVITY";
             this.txtYuklenenAktivite.Size = new System.Drawing.Size(983, 48);
             this.txtYuklenenAktivite.TabIndex = 13;
             this.txtYuklenenAktivite.Texts = "";
@@ -560,7 +603,7 @@ namespace BayerRadyofarmasotik
             this.txtUretimTesisTanimlayici.Padding = new System.Windows.Forms.Padding(16, 14, 7, 7);
             this.txtUretimTesisTanimlayici.PasswordChar = false;
             this.txtUretimTesisTanimlayici.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtUretimTesisTanimlayici.PlaceholderText = "";
+            this.txtUretimTesisTanimlayici.PlaceholderText = "PRODUCTION_IDENTIFIER";
             this.txtUretimTesisTanimlayici.Size = new System.Drawing.Size(983, 48);
             this.txtUretimTesisTanimlayici.TabIndex = 10;
             this.txtUretimTesisTanimlayici.Texts = "";
@@ -593,7 +636,7 @@ namespace BayerRadyofarmasotik
             this.TxtIstekBN.Padding = new System.Windows.Forms.Padding(16, 14, 7, 7);
             this.TxtIstekBN.PasswordChar = false;
             this.TxtIstekBN.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.TxtIstekBN.PlaceholderText = "";
+            this.TxtIstekBN.PlaceholderText = "BN";
             this.TxtIstekBN.Size = new System.Drawing.Size(983, 48);
             this.TxtIstekBN.TabIndex = 8;
             this.TxtIstekBN.Texts = "";
@@ -627,11 +670,12 @@ namespace BayerRadyofarmasotik
             this.txtIstekGTIN.Padding = new System.Windows.Forms.Padding(16, 14, 7, 7);
             this.txtIstekGTIN.PasswordChar = false;
             this.txtIstekGTIN.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtIstekGTIN.PlaceholderText = "";
+            this.txtIstekGTIN.PlaceholderText = "GTIN";
             this.txtIstekGTIN.Size = new System.Drawing.Size(983, 48);
             this.txtIstekGTIN.TabIndex = 6;
             this.txtIstekGTIN.Texts = "";
             this.txtIstekGTIN.UnderlinedStyle = false;
+            this.txtIstekGTIN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIstekGTIN_KeyPress);
             // 
             // lblGTIN
             // 
@@ -654,6 +698,16 @@ namespace BayerRadyofarmasotik
             this.lblUrunEklemeFormu.Size = new System.Drawing.Size(245, 29);
             this.lblUrunEklemeFormu.TabIndex = 0;
             this.lblUrunEklemeFormu.Text = "Ürün Ekleme Formu";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(633, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(770, 696);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 38;
+            this.pictureBox1.TabStop = false;
             // 
             // dgvProducts
             // 
@@ -798,12 +852,15 @@ namespace BayerRadyofarmasotik
             this.columnIslemler.UseColumnTextForButtonValue = true;
             this.columnIslemler.Width = 115;
             // 
-            // userControlIptalHeader1
+            // pictureBoxBayerLogo
             // 
-            this.userControlIptalHeader1.Location = new System.Drawing.Point(4, 88);
-            this.userControlIptalHeader1.Name = "userControlIptalHeader1";
-            this.userControlIptalHeader1.Size = new System.Drawing.Size(1600, 85);
-            this.userControlIptalHeader1.TabIndex = 3;
+            this.pictureBoxBayerLogo.Image = global::BayerRadyofarmasotik.Properties.Resources.Logo_Bayer_svg;
+            this.pictureBoxBayerLogo.Location = new System.Drawing.Point(211, 4);
+            this.pictureBoxBayerLogo.Name = "pictureBoxBayerLogo";
+            this.pictureBoxBayerLogo.Size = new System.Drawing.Size(91, 78);
+            this.pictureBoxBayerLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxBayerLogo.TabIndex = 12;
+            this.pictureBoxBayerLogo.TabStop = false;
             // 
             // userControl21
             // 
@@ -820,56 +877,6 @@ namespace BayerRadyofarmasotik
             this.userControl11.Size = new System.Drawing.Size(1583, 119);
             this.userControl11.TabIndex = 8;
             // 
-            // pictureBoxBayerLogo
-            // 
-            this.pictureBoxBayerLogo.Image = global::BayerRadyofarmasotik.Properties.Resources.Logo_Bayer_svg;
-            this.pictureBoxBayerLogo.Location = new System.Drawing.Point(211, 4);
-            this.pictureBoxBayerLogo.Name = "pictureBoxBayerLogo";
-            this.pictureBoxBayerLogo.Size = new System.Drawing.Size(91, 78);
-            this.pictureBoxBayerLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxBayerLogo.TabIndex = 12;
-            this.pictureBoxBayerLogo.TabStop = false;
-            // 
-            // comboBoxDT
-            // 
-            this.comboBoxDT.FormattingEnabled = true;
-            this.comboBoxDT.Items.AddRange(new object[] {
-            "Yurt İçi(M)",
-            "İthalat(I)",
-            "İhracat(E)"});
-            this.comboBoxDT.Location = new System.Drawing.Point(14, 527);
-            this.comboBoxDT.Name = "comboBoxDT";
-            this.comboBoxDT.Size = new System.Drawing.Size(983, 24);
-            this.comboBoxDT.TabIndex = 35;
-            // 
-            // comboBoxYuklenenAktiviteBirim
-            // 
-            this.comboBoxYuklenenAktiviteBirim.FormattingEnabled = true;
-            this.comboBoxYuklenenAktiviteBirim.Items.AddRange(new object[] {
-            "1-μci",
-            "2-mci",
-            "3-mbq",
-            "4-gbq",
-            "5-kutu"});
-            this.comboBoxYuklenenAktiviteBirim.Location = new System.Drawing.Point(1026, 316);
-            this.comboBoxYuklenenAktiviteBirim.Name = "comboBoxYuklenenAktiviteBirim";
-            this.comboBoxYuklenenAktiviteBirim.Size = new System.Drawing.Size(983, 24);
-            this.comboBoxYuklenenAktiviteBirim.TabIndex = 36;
-            // 
-            // comboBoxHedeflenenAktiviteBirim
-            // 
-            this.comboBoxHedeflenenAktiviteBirim.FormattingEnabled = true;
-            this.comboBoxHedeflenenAktiviteBirim.Items.AddRange(new object[] {
-            "1-μci",
-            "2-mci",
-            "3-mbq",
-            "4-gbq",
-            "5-kutu"});
-            this.comboBoxHedeflenenAktiviteBirim.Location = new System.Drawing.Point(1026, 421);
-            this.comboBoxHedeflenenAktiviteBirim.Name = "comboBoxHedeflenenAktiviteBirim";
-            this.comboBoxHedeflenenAktiviteBirim.Size = new System.Drawing.Size(983, 24);
-            this.comboBoxHedeflenenAktiviteBirim.TabIndex = 37;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -884,7 +891,6 @@ namespace BayerRadyofarmasotik
             this.Controls.Add(this.lblİptal);
             this.Controls.Add(this.lblIstek);
             this.Controls.Add(this.pnlIstekHeader);
-            this.Controls.Add(this.userControlIptalHeader1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Radyofarmasotik";
@@ -901,6 +907,7 @@ namespace BayerRadyofarmasotik
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxYuklenenAktivite)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUretimTesisTanimlayici)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIstekGtin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBayerLogo)).EndInit();
             this.ResumeLayout(false);
@@ -919,7 +926,6 @@ namespace BayerRadyofarmasotik
         private ButtonControls.RJButton btnIstekYeniSatir;
         private ButtonControls.RJButton btnIstekTemizle;
         private ButtonControls.RJButton btnIstekGonder;
-        private UI.UserControlIptalHeader userControlIptalHeader1;
         private System.Windows.Forms.Panel pnlIstekBody;
         private ButtonControls.RJDatePicker dtpSkt;
         private ButtonControls.RJDatePicker dtpCikisTarihi;
@@ -969,6 +975,7 @@ namespace BayerRadyofarmasotik
         private System.Windows.Forms.ComboBox comboBoxDT;
         private System.Windows.Forms.ComboBox comboBoxHedeflenenAktiviteBirim;
         private System.Windows.Forms.ComboBox comboBoxYuklenenAktiviteBirim;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

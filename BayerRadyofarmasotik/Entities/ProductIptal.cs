@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace BayerRadyofarmasotik.Entities
 {
-    public class ProductResponse
+    public class ProductIptal
     {
         public string gtin { get; set; }
         public string bn { get; set; }
         public string loadDate { get; set; }
-        public string uc { get; set; }
     }
-    public class ProductsResponse
+    public class ProductsIptal
     {
-        public long notificationId { get; set; }
-        public List<ProductResponse> productList { get; set; }
+        public string toGln { get; set; }
+        public List<ProductIptal> productList { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace BayerRadyofarmasotik.ButtonControls
         private int borderSize = 0;
         //-> Other Values
         private bool droppedDown = false;
-        private Image calendarIcon = Properties.Resources.calendarWhite;
+        //private Image calendarIcon = Properties.Resources.calendarWhite;
         private RectangleF iconButtonArea;
         private const int calendarIconWidth = 15;
         private const int arrowIconWidth = 200;
@@ -33,9 +33,9 @@ namespace BayerRadyofarmasotik.ButtonControls
             set
             {
                 skinColor = value;
-                if (skinColor.GetBrightness() >= 0.8F)
-                    calendarIcon = Properties.Resources.calendarDark;
-                else calendarIcon = Properties.Resources.calendarWhite;
+                //if (skinColor.GetBrightness() >= 0.8F)
+                //    calendarIcon = Properties.Resources.calendarDark;
+                //else calendarIcon = Properties.Resources.calendarWhite;
                 this.Invalidate();
             }
         }
@@ -116,7 +116,7 @@ namespace BayerRadyofarmasotik.ButtonControls
                 //Draw border 
                 if (borderSize >= 1) graphics.DrawRectangle(penBorder, clientArea.X, clientArea.Y, clientArea.Width, clientArea.Height);
                 //Draw icon
-                graphics.DrawImage(calendarIcon, this.Width - calendarIcon.Width - 9, (this.Height - calendarIcon.Height) / 2);
+                //graphics.DrawImage(calendarIcon, this.Width - calendarIcon.Width - 9, (this.Height - calendarIcon.Height) / 2);
 
             }
         }
